@@ -1,0 +1,30 @@
+[
+    {
+        "rating": "4.5",
+        "title": "THE WATER CURE",
+        "text": "Marting Hyatt",
+        "img": "https://images.unsplash.com/photo-1514907707149-eca420f5de51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80",
+        "audio": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    },
+    {
+        "rating": "4.6",
+        "title": "PEACE LIFE",
+        "text": "Hazard Bin",
+        "img": "https://images.unsplash.com/photo-1574676761689-e9efb8f3dd24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "audio": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+    },
+    {
+        "rating": "4.5",
+        "title": "Day Remember",
+        "text": "Nicholos",
+        "img": "https://images.unsplash.com/photo-1632073591992-b872304ca933?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "audio": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+    },
+    {
+        "rating": "4.5",
+        "title": "France",
+        "text": "Paris",
+        "img": "https://images.unsplash.com/photo-1624220570807-fc8205adec5d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "audio": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+    }
+]
