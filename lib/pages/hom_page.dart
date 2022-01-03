@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:ebook/widgets/my_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,7 +13,30 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late List popularBooks;
+  late ScrollController _scrollController;
+  late TabController _tabController;
+
+  readData() async {
+    await DefaultAssetBundle.of(context)
+        .loadString("assets/json/popularBooks.json")
+        .then((s) {
+      setState(() {
+        popularBooks = json.decode(s);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _scrollController = ScrollController();
+    readData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                           height: 180,
                           child: PageView.builder(
                             controller: PageController(viewportFraction: 0.8),
-                            itemCount: 5,
+                            itemCount: popularBooks.length,
                             itemBuilder: (_, i) {
                               return Container(
                                 height: 180,
@@ -75,9 +101,10 @@ class _HomePageState extends State<HomePage> {
                                     const EdgeInsets.symmetric(horizontal: 8),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(17),
-                                  image: const DecorationImage(
+                                  image: DecorationImage(
                                     image: NetworkImage(
-                                        "https://images.unsplash.com/photo-1634130885426-f97357c56db8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"),
+                                      popularBooks[i]["img"],
+                                    ),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -86,6 +113,79 @@ class _HomePageState extends State<HomePage> {
                           )),
                     ),
                   ],
+                ),
+              ),
+              Expanded(
+                child: NestedScrollView(
+                  controller: _scrollController,
+                  headerSliverBuilder: (BuildContext context, bool isScroll) {
+                    return [
+                      SliverAppBar(
+                        pinned: true,
+                        backgroundColor: Colors.white,
+                        bottom: PreferredSize(
+                          preferredSize: const Size.fromHeight(50),
+                          child: Container(
+                            margin: const EdgeInsets.all(20.0),
+                            child: TabBar(
+                              indicatorPadding: const EdgeInsets.all(0),
+                              indicatorSize: TabBarIndicatorSize.label,
+                              labelPadding: const EdgeInsets.only(right: 10),
+                              controller: _tabController,
+                              isScrollable: true,
+                              indicator: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 0),
+                                  ),
+                                ],
+                              ),
+                              tabs: const [
+                                AppTab(
+                                    text: "New", color: AppColor.menue1Color),
+                                AppTab(
+                                    text: "New", color: AppColor.menue2Color),
+                                AppTab(
+                                    text: "New", color: AppColor.menue3Color),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ];
+                  },
+                  body: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      Material(
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.grey,
+                          ),
+                          title: Text("Content"),
+                        ),
+                      ),
+                      Material(
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.grey,
+                          ),
+                          title: Text("Content"),
+                        ),
+                      ),
+                      Material(
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.grey,
+                          ),
+                          title: Text("Content"),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
